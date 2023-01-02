@@ -17,11 +17,15 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class CategoriesController extends AbstractController
 {
+    public function __construct(private ManagerRegistry $doctrine)
+    {
+        
+    }
     #[Route('/categories', name: 'app_categories')]
-    public function index(ManagerRegistry $doctrine): Response
+    public function index(): Response
     {
 
-        $entityManager = $doctrine->getManager();
+        $entityManager = $this->doctrine->getManager();
         $data = $entityManager->getRepository(Categories::class)->findAll();
         return $this->render('categories/index.html.twig', [
             'controller_name' => 'CategoriesController',
@@ -38,10 +42,10 @@ class CategoriesController extends AbstractController
         ]);
     }
     #[Route('/categories/new', name: 'app_categories_new')]
-    public function post(Request $request, ManagerRegistry $doctrine): Response
+    public function post(Request $request): Response
     {
         $categories = new Categories();
-        $entityManager = $doctrine->getManager();
+        $entityManager = $$this->doctrine->getManager();
         $form = $this->createForm(CategoriesType::class, $categories);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -59,13 +63,13 @@ class CategoriesController extends AbstractController
     }
 
     #[Route('/categories/edit/{id<\d+>}', name: 'app_categories_edit')]
-    public function edit(Categories $categories, ManagerRegistry $doctrine, Request $request)
+    public function edit(Categories $categories, Request $request)
     {
         $form = $this->createForm(CategoriesType::class, $categories);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $doctrine->getManager();
+            $entityManager = $this->doctrine->getManager();
             $entityManager->flush();
             return $this->redirectToRoute('app_categories');
         }
@@ -77,9 +81,9 @@ class CategoriesController extends AbstractController
     }
 
     #[Route('/categories/delete/{id<\d+>}', name: 'app_categories_delete')]
-    public function deleteAction(Categories $categories, ManagerRegistry $doctrine)
+    public function deleteAction(Categories $categories)
     {
-        $entityManager = $doctrine->getManager();
+        $entityManager = $this->doctrine->getManager();
         $entityManager->remove($categories);
         $entityManager->flush();
         return $this->redirectToRoute('app_categories');
