@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Register!
+{% endblock %}
+{% set class=''%}
+{% set classpass=''%}
+{% set classuser=''%}
+{% if not userform.email.vars.valid %}
+	{% set class='is-invalid'%}
+{% endif %}
+{% if not userform.password.vars.valid %}
+	{% set classpass='is-invalid'%}
+{% endif %}
+{% if not userform.username.vars.valid %}
+	{% set classuser='is-invalid'%}
+{% endif %}
+
+
+
+{% block body %}
+
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap justify-content-md-center">
+				<section class="vh-70">
+					<div class="container-fluid h-custom">
+						<div class="row d-flex justify-content-center align-items-center h-100">
+							<div class="col-md-9 col-lg-6 col-xl-5">
+								<img src="{{asset('build/images/login.jpg')}}" class="img-fluid" alt="Sample image">
+							</div>
+							<div class="vl"></div>
+
+							<div class="col-md-9 col-lg-6 col-xl-4 offset-xl-1">
+								<h3 class="text-center">Register</h3>
+
+								{{ form_start(userform) }}
+								{{ form_row(userform._token) }}
+								<div class="form-group">
+
+									<label for="username">
+										<label for="exampleInputPassword">Username :</label>
+									</label>
+									<div class="input-group">
+										<div class="input-group-prepend bg-transparent">
+											<span class="input-group-text bg-transparent border-right-0">
+												<i class="mdi mdi-account-outline text-primary"></i>
+											</span>
+										</div>
+										<input type="text" value="{{userform.username.vars.value}}" name="{{userform.username.vars.full_name}}" id="{{userform.username.vars.id}}" class="form-control  {{classuser}} " placeholder="Username">
+										{{ form_errors(userform.username) }}
+									</div>
+								</div>
+
+								<div class="form-group">
+
+									<label for="username">
+										<label for="exampleInputPassword">Email :</label>
+									</label>
+									<div class="input-group">
+										<div class="input-group-prepend bg-transparent">
+											<span class="input-group-text bg-transparent border-right-0">
+												<i class="mdi mdi-account-outline text-primary"></i>
+											</span>
+										</div>
+										<input type="text" value="{{userform.email.vars.value}}" name="{{userform.email.vars.full_name}}" id="{{userform.email.vars.id}}" class="form-control  {{class}} " placeholder="example@example.com">
+										{{ form_errors(userform.email) }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="{{userform.password.first.vars.id}}">Mot de passe :</label>
+									<div class="input-group">
+										<div class="input-group-prepend bg-transparent">
+											<span class="input-group-text bg-transparent border-right-0">
+												<i class="mdi mdi-lock-outline text-primary"></i>
+											</span>
+										</div>
+										<input type="password" name="{{userform.password.first.vars.full_name}}" id="{{userform.password.first.vars.id}}" class="form-control {{classpass}}" placeholder="Mot de passe">
+										{{ form_errors(userform.password.first) }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="{{userform.password.second.vars.id}}">Confirm Mot de passe :</label>
+									<div class="input-group">
+										<div class="input-group-prepend bg-transparent">
+											<span class="input-group-text bg-transparent border-right-0">
+												<i class="mdi mdi-lock-outline text-primary"></i>
+											</span>
+										</div>
+										<input type="password" name="{{userform.password.second.vars.full_name}}" id="{{userform.password.second.vars.id}}" class="form-control {{classpass}}" placeholder="Mot de passe">
+										{{ form_errors(userform.password.second) }}
+									</div>
+								</div>
+								<div class="my-2 d-flex justify-content-between align-items-center">
+									<div class="form-check ">
+										<label class="form-check-label text-muted">
+											<input type="checkbox" onclick="myFunction()" class="form-check-input"><i class="input-helper"></i>
+											Show Password
+										</label>
+										<label class="form-check-label text-muted">
+											<input type="checkbox" name="_remember_me">
+											Remember me
+										</label>
+									</div>
+								</div>
+								<div class="my-3">
+									<button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+								</div>
+								<div class="text-center">
+									<p>You have account?
+										<a href="{{path('app_login')}}">Login</a>
+									</p>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</section>
+
+			</div>
+		</div>
+	</div>
+	<script>
+		function myFunction() {
+var x = document.getElementById("user_password_first") ;
+var y = document.getElementById("user_password_second") ;
+if (x.type === "password") {
+x.type = "text";
+y.type ="text";
+} else {
+x.type = "password";
+y.type ="password";
+}
+}
+	</script>
+{% endblock %}

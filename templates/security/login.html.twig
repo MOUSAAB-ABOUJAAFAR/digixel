@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Log in!
+{% endblock %}
+
+{% block body %}
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap justify-content-md-center">
+				<section class="vh-70">
+					<div class="container-fluid h-custom">
+						<div class="row d-flex justify-content-center align-items-center h-100">
+							<div class="col-md-9 col-lg-6 col-xl-5">
+								<img src="{{asset('build/images/login.jpg')}}" class="img-fluid" alt="Sample image">
+							</div>
+							<div class="vl"></div>
+
+							<div class="col-md-9 col-lg-6 col-xl-4 col-xl-4 offset-xl-1">
+								<h3 class="text-center">Login</h3>
+
+								<form class="pt-3" method="post">
+									{% if error %}
+										<div class="alert alert-danger">Invalid Email & Mot de passe</div>
+									{% endif %}
+
+									{% if app.user %}
+										<div class="mb-3">
+											You are logged in as
+											{{ app.user.userIdentifier }},
+											<a href="{{ path('app_logout') }}">Logout</a>
+										</div>
+									{% endif %}
+									<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+									<div class="form-group">
+										<label for="username">
+											<label for="exampleInputPassword">Email :</label>
+										</label>
+										<div class="input-group">
+											<div class="input-group-prepend bg-transparent">
+												<span class="input-group-text bg-transparent border-right-0">
+													<i class="mdi mdi-account-outline text-primary"></i>
+												</span>
+											</div>
+											<input required type="text" value="{{ last_username }}" name="email" id="inputEmail" v-model="username" class="form-control" id="username" placeholder="example@example.com">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="exampleInputPassword">Mot de passe :</label>
+										<div class="input-group">
+											<div class="input-group-prepend bg-transparent">
+												<span class="input-group-text bg-transparent border-right-0">
+													<i class="mdi mdi-lock-outline text-primary"></i>
+												</span>
+											</div>
+											<input required type="password" name="password" id="inputPassword" v-model="password" class="form-control " id="exampleInputPassword" placeholder="Mot de passe">
+
+										</div>
+									</div>
+									<div class="my-2 d-flex justify-content-between align-items-center">
+										<div class="form-check ">
+											<label class="form-check-label text-muted">
+												<input type="checkbox" onclick="myFunction()" class="form-check-input"><i class="input-helper"></i>
+												Show Password
+											</label>
+											<label class="form-check-label text-muted">
+												<input type="checkbox" name="_remember_me">
+												Remember me
+											</label>
+										</div>
+									</div>
+									<div class="my-3">
+										<button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
+									</div>
+									<div class="text-center">
+										<p>Not a member?
+											<a href="{{path('app_register')}}">Register</a>
+										</p>
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</section>
+
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
+{% block javascripts %}
+	{{parent()}}
+	<script src="{{ asset('/build/js/app.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Details Produit
+{% endblock %}
+
+{% block body %}
+	{% include 'hedear.html.twig' %}
+	<style>
+		span {
+			font-size: 2rem;
+			margin-top: 0.5rem;
+			margin-bottom: 1rem;
+			font-family: inherit;
+			font-weight: 500;
+			line-height: 1.2;
+			color: #0290d8;
+		}
+		h1{
+			font-size: 2rem;
+			margin-top: 0.5rem;
+			margin-bottom: 1rem;
+			font-family: inherit;
+			font-weight: 500;
+			line-height: 1.2;
+			color: #6c757d;
+		}
+	</style>
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap justify-content-md-center">
+				<section class="vh-70">
+
+					<div class="container-fluid h-custom">
+						<h1>Categorie : <span>{{Categories.Name}}</span></h1>
+						<hr class="bg-secondary  mt-0"/>
+						
+						<div>
+							<h4 style="color:#6c757d">Déscription :</h4>
+							
+							<p>{{Categories.Description}}</p>
+
+						</div>
+					</div>
+
+				</section>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

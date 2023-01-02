@@ -1,0 +1,136 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Produits
+{% endblock %}
+
+{% block body %}
+	{% include 'hedear.html.twig' %}
+
+	<div class="limiter">
+		<div class="container-login100 m-0 p-0 pt-2">
+			<div class="container bg-white rounded p-2">
+
+				<div class="row">
+					<div class="col">
+						<div class="my-auto mr-2">
+							<h4 class="card-title my-3">Liste des Produits</h4>
+						</div>
+					</div>
+					<div class="col d-flex flex-row-reverse">
+						<div class="">
+							<a href="{{path('app_produits_new')}}">
+								<button type="submit" class="btn btn-success btn-lg btn-block">
+									<i class="mdi mdi-plus mr-2"></i>
+									Create Produits</button>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 md-12 p-0 my-2">
+					<hr class="bg-secondary  mt-0"/>
+				</div>
+				<div>
+					<table id="example" class="table table-striped table-bordered" style="width:100%">
+						<thead>
+							<tr>
+								<th>#Id</th>
+								<th>Name</th>
+								<th>Description</th>
+								<th>Price</th>
+								<th>Action</th>
+
+							</tr>
+						</thead>
+
+						<tbody>
+							{% for p in Produits %}
+								<tr>
+									<td>{{ p.id }}</td>
+									<td>{{ p.Name }}</td>
+									<td>
+										<span class="d-inline-block text-truncate">
+											{{p.Description}}
+										</span>
+									</td>
+									<td>{{ p.Price }}</td>
+									<td>
+										<div class="ml-2">
+											<a href="{{ path('app_produits_details', {'id': p.id}) }}" class="text-center ">
+												<i class="mdi mdi-eye" class="icon-block bg-red"></i>
+											</a>
+											<a href="{{ path('app_produits_edit', {'id': p.id}) }}" class="text-center ">
+												<i class="mdi mdi-pencil" class="icon-block bg-red"></i>
+											</a>
+											<a href="#" id="{{p.id}}" class="delete">
+												<i class="mdi mdi-delete" class="icon-block bg-red"></i>
+											</a>
+										</div>
+
+									</td>
+
+								</tr>
+							{% endfor %}
+
+						</tbody>
+
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script>
+
+			$(document).ready(function () {
+$('#example').DataTable({
+responsive: {
+details: false
+}
+});
+});
+
+let form = $('#form');
+let del = $('a.delete');
+
+$(del).each(function () {
+$(this).on('click', function (e) {
+e.preventDefault();
+
+let link = $(this);
+let target = $(this).attr('id');
+var id = target.toString();
+const swalWithBootstrapButtons = Swal.mixin({
+customClass: {
+confirmButton: 'btn btn-success',
+cancelButton: 'btn btn-danger'
+},
+buttonsStyling: false
+})
+
+swalWithBootstrapButtons.fire({
+title: 'Are you sure?',
+text: "You won't be able to revert this!",
+icon: 'warning',
+showCancelButton: true,
+confirmButtonText: 'Yes, delete it!',
+cancelButtonText: 'No, cancel!',
+reverseButtons: true
+}).then((result) => {
+if (result.isConfirmed) {
+swalWithBootstrapButtons.fire('Deleted!', 'Your Produit has been deleted.', 'success')
+window.location.href = '/produits/delete/' + id;
+
+} else if (
+/* Read more about handling dismissals below */
+result.dismiss === Swal.DismissReason.cancel
+) {}
+})
+})
+})
+		</script>
+	{% block javascripts %}
+		{{parent()}}
+	{% endblock %}
+
+{% endblock %}

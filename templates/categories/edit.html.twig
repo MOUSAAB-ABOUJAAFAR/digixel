@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Edit Produit
+{% endblock %}
+
+{% block body %}
+	{% include 'hedear.html.twig' %}
+
+
+	<div class="limiter">
+		<div class="container-login100">
+
+			<div class="container p-4 bg-white rounded">
+				<div class="row">
+					<div class="col">
+						<div class="my-auto mr-2">
+							<h4 class="card-title my-0">Edit Produit</h4>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-12 md-12 p-0 my-2">
+					<hr class="bg-secondary  mt-0"/>
+
+				</div>
+				{{ form_start(categoriesform, {'attr': {'id':'edit_categories','novalidate': 'novalidate' , 'enctype': 'multipart/form-data'}  })}}
+				{% set class=''%}
+
+				{{ form_widget(categoriesform) }}
+
+				<button type="submit" class="mt-4 btn btn-success btn-lg btn-block">
+
+					Edit Categorie</button>
+				{{ form_end(categoriesform) }}
+			</div>
+		</div>
+	</div>
+
+	{% block javascripts %}
+		{{ parent() }}
+
+		<script>
+
+			$("#edit_categories").submit(function () {
+var Name = document.getElementById("categories_Name").value;
+var des = document.getElementById("categories_Description").value;
+if (Name !== "" && des !== "") 
+Swal.fire('Categorie Update successfully', 'OK', 'success')
+
+});
+		</script>
+
+	{% endblock %}
+{% endblock %}

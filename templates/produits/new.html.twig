@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}New Produit
+{% endblock %}
+
+{% block body %}
+	{% include 'hedear.html.twig' %}
+
+
+	<div class="limiter">
+		<div class="container-login100">
+
+			<div class="container p-4 bg-white rounded">
+				<div class="row">
+					<div class="col">
+						<div class="my-auto mr-2">
+							<h4 class="card-title my-0">New Produit</h4>
+						</div>
+					</div>
+
+				</div>
+				<div class="col-12 md-12 p-0 my-2">
+					<hr class="bg-secondary  mt-0"/>
+
+				</div>
+				{{ form_start(produitform, {'attr': {'id':'create_produits','novalidate': 'novalidate' , 'enctype': 'multipart/form-data'}  })}}
+				{% set class=''%}
+
+				{{ form_widget(produitform) }}
+				<label for="inputPassword5">Image :</label>
+				{% if not produitform.Image.vars.valid %}
+					{% set class='is-invalid'%}
+					<span class="invalid-feedback d-block mb-2">
+						<span class="d-block">
+							<span class="form-error-icon badge badge-danger text-uppercase">Error</span>
+							<span class="form-error-message">This value should not be blank.</span>
+						</span>
+					</span>
+				{% endif %}
+				<div class="custom-file">
+
+					<input type="file" accept="image/png, image/gif, image/jpeg" class="custom-file-input {{class}}" id="ImageFile" name="ImageFile">
+					<label class="custom-file-label" for="ImageFile">Choose file...</label>
+				</div>
+				<button type="submit" id="create_produits" class="mt-4 btn btn-success btn-lg btn-block">
+
+					Create Produit</button>
+				{{ form_end(produitform) }}
+			</div>
+		</div>
+	</div>
+	{% block javascripts %}
+		
+			{{ parent() }}
+
+	{% endblock %}
+{% endblock %}

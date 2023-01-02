@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Details Produit
+{% endblock %}
+
+{% block body %}
+	{% include 'hedear.html.twig' %}
+
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap justify-content-md-center">
+				<section class="vh-70">
+					<div class="container-fluid h-custom">
+						<div class="row d-flex justify-content-center align-items-center h-100">
+							<div class="col-md-9 col-lg-6 col-xl-5">
+								<img src="{{ asset(Produit.image) }}" class="img-fluid" alt="Sample image">
+							</div>
+
+							<div class="col-md-9 col-lg-6 col-xl-4 offset-xl-1">
+								<div class="product-configuration">
+									<div class="product-description">
+										<span>{{Produit.Categories}}</span>
+										<h1>{{Produit.Name}}</h1>
+										<p>{{Produit.Description}}
+										</p>
+									</div>
+								</div>
+								<div class="flex d-flex	">
+									 <h1><span class="badge badge-secondary">{{Produit.Price}}$</span></h1>
+									<a href="#" class="btn btn-success ml-2 my-2">Add to cart</a>
+								</div>
+							</div>
+							
+
+
+						</div>
+					</div>
+
+				</section>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}
